@@ -22,7 +22,7 @@ struct WeatherData: Codable {
     var cityName: String
     var temperatures: Temperatures
     var wind: Wind
-    var weather: Weather
+    var weather: [Weather]
     
     enum CodingKeys: String, CodingKey {
         case wind, weather

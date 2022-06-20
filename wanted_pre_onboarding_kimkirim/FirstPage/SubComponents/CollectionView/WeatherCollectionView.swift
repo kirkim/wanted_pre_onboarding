@@ -8,9 +8,12 @@
 import UIKit
 
 class WeatherCollectionView: UICollectionView {
+    private let model = WeatherCollectionModel()
+    private let viewModel: WeatherCollectionViewModel
     
     init() {
-        super.init(frame: CGRect.zero, collectionViewLayout: self.createLayout())
+        viewModel = WeatherCollectionViewModel(model)
+        super.init(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         
         attribute()
         layout()
@@ -21,7 +24,9 @@ class WeatherCollectionView: UICollectionView {
     }
     
     private func attribute() {
-        
+        self.collectionViewLayout = createLayout()
+        self.dataSource = self
+        self.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identity)
     }
     
     private func layout() {
@@ -32,11 +37,17 @@ class WeatherCollectionView: UICollectionView {
 // MARK: - WeatherCollectionView datasource, delegate
 extension WeatherCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        return CityList.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identity, for: indexPath) as! WeatherCollectionViewCell
+        viewModel.getCellData(indexPath: indexPath) { data in
+            if (data != nil ) {
+                cell.setData(data: data!)
+            }
+        }
+        return cell
     }
     
     
@@ -46,9 +57,9 @@ extension WeatherCollectionView: UICollectionViewDataSource {
 extension WeatherCollectionView {
     func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)), subitem: item, count: 2)
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1)))
+            item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4)), subitem: item, count: 3)
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             return section

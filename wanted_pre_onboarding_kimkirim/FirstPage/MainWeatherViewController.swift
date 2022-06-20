@@ -10,7 +10,7 @@ import UIKit
 class MainWeatherViewController: UIViewController {
     private let containerStackView = UIStackView()
     private let titleLabel = UILabel()
-    private let tableView = WeatherCollectionView()
+    private let collectionView = WeatherCollectionView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,7 +22,10 @@ class MainWeatherViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+//MARK: - attribute, layout function
+extension MainWeatherViewController {
     private func attribute() {
         containerStackView.axis = .vertical
         containerStackView.distribution = .fill
@@ -31,16 +34,14 @@ class MainWeatherViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = .systemFont(ofSize: 25, weight: .medium)
         
-        tableView.dataSource = self
-        
         // temp
         containerStackView.backgroundColor = .blue
         titleLabel.backgroundColor = .green
-        tableView.backgroundColor = .purple
+        collectionView.backgroundColor = .purple
     }
     
     private func layout() {
-        [titleLabel, tableView].forEach {
+        [titleLabel, collectionView].forEach {
             containerStackView.addArrangedSubview($0)
         }
         view.addSubview(containerStackView)

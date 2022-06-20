@@ -41,23 +41,19 @@ class WeatherAPI {
         components.scheme = WeatherAPI.schema
         components.host = WeatherAPI.host
         components.path = WeatherAPI.weatherPath
-        let cityValue = "\(cityName.value),KR"
+        let cityValue = "\(cityName.rawValue),KR"
         
         components.queryItems = [
             URLQueryItem(name: "q", value: cityValue),
             URLQueryItem(name: "appid", value: API_KEY)
         ]
-        
         return components
     }
-    
-    func getWeatherIcon(by code: String) -> URLComponents {
+
+    func getWeatherIcon(by code: String) -> String {
         let iconCode = "\(code)@2x.png"
-        var components = URLComponents()
-        components.scheme = WeatherAPI.schema
-        components.host = WeatherAPI.host
-        components.path = WeatherAPI.iconPath + iconCode
-        
-        return components
+        let result = WeatherAPI.schema + "://openweathermap.org" + WeatherAPI.iconPath + iconCode
+
+        return result
     }
 }
