@@ -29,22 +29,35 @@ import Foundation
 //    return components
 //}
 
-class WheatherAPI {
+class WeatherAPI {
     static let schema = "https"
     static let host = "api.openweathermap.org"
-    static let path = "/data/2.5/weather"
+    static let weatherPath = "/data/2.5/weather"
+    static let iconPath = "/img/wn/"
     private let API_KEY = "bfb1ec7429aee49a725a5c8b7a708115"
     
-    func getWeather(by cityName: String) -> URLComponents {
-        var componenets = URLComponents()
-        componenets.scheme = WheatherAPI.schema
-        componenets.host = WheatherAPI.host
-        componenets.path = WheatherAPI.path
-        let cityValue = "\(cityName),KR"
+    func getWeather(by cityName: CityList) -> URLComponents {
+        var components = URLComponents()
+        components.scheme = WeatherAPI.schema
+        components.host = WeatherAPI.host
+        components.path = WeatherAPI.weatherPath
+        let cityValue = "\(cityName.value),KR"
         
-        componenets.queryItems = [
+        components.queryItems = [
             URLQueryItem(name: "q", value: cityValue),
             URLQueryItem(name: "appid", value: API_KEY)
         ]
+        
+        return components
+    }
+    
+    func getWeatherIcon(by code: String) -> URLComponents {
+        let iconCode = "\(code)@2x.png"
+        var components = URLComponents()
+        components.scheme = WeatherAPI.schema
+        components.host = WeatherAPI.host
+        components.path = WeatherAPI.iconPath + iconCode
+        
+        return components
     }
 }

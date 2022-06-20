@@ -10,7 +10,7 @@ import UIKit
 class MainWeatherViewController: UIViewController {
     private let containerStackView = UIStackView()
     private let titleLabel = UILabel()
-    private let tableView = UITableView()
+    private let tableView = WeatherCollectionView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -54,12 +54,4 @@ class MainWeatherViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
-}
-
-extension MainWeatherViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-    
-    
 }
