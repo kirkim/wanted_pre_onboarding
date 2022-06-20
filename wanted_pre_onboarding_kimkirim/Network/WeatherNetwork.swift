@@ -18,6 +18,7 @@ class WeatherNetwork {
     
     typealias WeatherNetworkResult = (Result<WeatherData, URLError>) -> ()
     func getWeather(by cityName: CityList, completion: @escaping WeatherNetworkResult) {
+        print("WeatherNetwork getWeather() called!")
         DispatchQueue.global().async { [weak self] in
             guard let url = self?.api.getWeather(by: cityName).url else {
                 completion(.failure(URLError(.badURL)))

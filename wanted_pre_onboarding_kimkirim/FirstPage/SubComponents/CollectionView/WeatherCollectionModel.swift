@@ -10,18 +10,21 @@ import Foundation
 class WeatherCollectionModel {
     
     private let api = WeatherNetwork.shared
-    
     private let cities = CityList.allCases
-    private var datas: [CityList:WeatherData] = [:]
     
     func getCellData(indexPath: IndexPath, completion: @escaping (WeatherCellData?) -> ()) {
-        let cityName = cities[indexPath.row]
-        
-        api.getWeather(by: cityName) { result in
+        let city = cities[indexPath.row]
+        let cachedData = WeatherCacheManager.shared.getCachedData(city: city)
+        if (cachedData != nil) {
+            let cellData = self.parcingToCellData(city: city, data: cachedData!)
+            completion(cellData)
+            return
+        }
+        api.getWeather(by: city) { result in
             switch result {
             case .success(let data):
-                self.datas.updateValue(data, forKey: cityName)
-                let cellData = WeatherCellData(cityName: cityName.korean, temperature: data.temperatures.temp, humidity: data.temperatures.humidity, icon: data.weather[0].icon)
+                WeatherCacheManager.shared.addData(city: city, data: data)
+                let cellData = self.parcingToCellData(city: city, data: data)
                 completion(cellData)
             case .failure(let error):
                 print(error)
@@ -35,7 +38,12 @@ class WeatherCollectionModel {
     }
     
     func getDetailWeatherData(indexPath: IndexPath) -> WeatherData? {
-        let cityName = cities[indexPath.row]
-        return datas[cityName]
+        let city = cities[indexPath.row]
+        return WeatherCacheManager.shared.getCachedData(city: city)
+    }
+    
+    private func parcingToCellData(city: CityList, data: WeatherData) -> WeatherCellData {
+        let cellData = WeatherCellData(cityName: city.korean, temperature: data.temperatures.temp, humidity: data.temperatures.humidity, icon: data.weather[0].icon)
+        return cellData
     }
 }

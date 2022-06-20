@@ -23,6 +23,7 @@
 		FEA9DFEC28605FCC00F93EA4 /* WeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9DFEB28605FCC00F93EA4 /* WeatherCollectionViewCell.swift */; };
 		FEA9DFEE2860666900F93EA4 /* WeatherCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9DFED2860666900F93EA4 /* WeatherCellData.swift */; };
 		FEA9DFF12860849900F93EA4 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9DFF02860849900F93EA4 /* ImageCacheManager.swift */; };
+		FEA9DFF32860D29700F93EA4 /* WeatherCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA9DFF22860D29700F93EA4 /* WeatherCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		FEA9DFEB28605FCC00F93EA4 /* WeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		FEA9DFED2860666900F93EA4 /* WeatherCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCellData.swift; sourceTree = "<group>"; };
 		FEA9DFF02860849900F93EA4 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		FEA9DFF22860D29700F93EA4 /* WeatherCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				FEA9DFF02860849900F93EA4 /* ImageCacheManager.swift */,
+				FEA9DFF22860D29700F93EA4 /* WeatherCacheManager.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				FE791C01286027E30038661E /* WeatherCollectionView.swift in Sources */,
 				FE791BFA28601A0A0038661E /* WeatherNetwork.swift in Sources */,
 				FE791BF0286007080038661E /* MainWeatherViewController.swift in Sources */,
+				FEA9DFF32860D29700F93EA4 /* WeatherCacheManager.swift in Sources */,
 				FE791BF8286012980038661E /* CityList.swift in Sources */,
 				FEA9DFF12860849900F93EA4 /* ImageCacheManager.swift in Sources */,
 				FE791BFC28601AA80038661E /* WeatherData.swift in Sources */,

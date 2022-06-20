@@ -27,6 +27,19 @@ class WeatherCollectionView: UICollectionView {
         self.collectionViewLayout = createLayout()
         self.dataSource = self
         self.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identity)
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+    }
+    
+    @objc private func didPullToRefresh() {
+        DispatchQueue.global().async {
+            WeatherCacheManager.shared.removeAll()
+            sleep(1) // 임시로 지연시간 1초 줌
+            DispatchQueue.main.async {
+                self.reloadData()
+                self.refreshControl?.endRefreshing()
+            }
+        }
     }
     
     private func layout() {
@@ -49,8 +62,6 @@ extension WeatherCollectionView: UICollectionViewDataSource {
         }
         return cell
     }
-    
-    
 }
 
 // MARK: - WeatherCollectionView NSCollectionLayoutSection

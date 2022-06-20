@@ -47,7 +47,7 @@ enum CityList: String, CaseIterable {
         case .jeonju:
             return "전주"
         case .jeju:
-            return "제주시"
+            return "제주"
         case .cheonan:
             return "천안"
         case .cheongju:
