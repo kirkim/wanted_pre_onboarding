@@ -22,23 +22,30 @@ class MainWeatherViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
 }
 
 //MARK: - attribute, layout function
 extension MainWeatherViewController {
     private func attribute() {
+        self.view.backgroundColor = UIColor(displayP3Red: 53/256, green: 119/256, blue: 207/256, alpha: 1)
+        
         containerStackView.axis = .vertical
         containerStackView.distribution = .fill
         
-        titleLabel.text = "날씨 정보"
+        titleLabel.text = "날씨 앱"
         titleLabel.textAlignment = .center
-        titleLabel.font = .systemFont(ofSize: 25, weight: .medium)
+        titleLabel.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 35, weight: .bold)
         
         collectionView.customDelegate = self
         // temp
-        containerStackView.backgroundColor = .blue
-        titleLabel.backgroundColor = .green
-        collectionView.backgroundColor = .purple
+//        containerStackView.backgroundColor = .blue
+//        titleLabel.backgroundColor = .green
     }
     
     private func layout() {
@@ -51,7 +58,7 @@ extension MainWeatherViewController {
         containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        containerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        containerStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true

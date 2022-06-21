@@ -33,10 +33,13 @@ class InfoView: UIStackView {
         
         [descriptionLabel, dataLabel].forEach {
             $0.textAlignment = .center
-            $0.textColor = .black
         }
+        
         descriptionLabel.font = .systemFont(ofSize: 22, weight: .medium)
+        descriptionLabel.textColor = .black
+        
         dataLabel.font = .systemFont(ofSize: 22, weight: .medium)
+        dataLabel.textColor = .blue
     }
     
     private func layout() {

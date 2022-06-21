@@ -49,7 +49,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 //MARK: - attribute, layout function
 extension WeatherCollectionViewCell {
     private func attribute() {
-        contentView.backgroundColor = .brown
+        contentView.backgroundColor = .black.withAlphaComponent(0.2)
         
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .fill
@@ -59,12 +59,9 @@ extension WeatherCollectionViewCell {
         
         [temperatureLabel, humidityLabel, cityNameLabel].forEach {
             $0.textAlignment = .center
+            $0.textColor = .white
         }
-        
-        //temp
-        verticalStackView.backgroundColor = .red
-        horizonStackView.backgroundColor = .green
-        iconImageView.backgroundColor = .brown
+        cityNameLabel.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
     private func parsingToCelsiusString(temp: Double) -> String {

@@ -16,6 +16,7 @@ class DetailWeatherViewcontroller: UIViewController {
     private let viewModel: DetailWeatherViewModel
     private let containerStackView = UIStackView()
     
+    private let customNavigationBar = CustomNavigationBar()
     private let iconImageView = UIImageView()
     private let weatherDiscriptionLabel = UILabel()
     private let cityNameLabel = UILabel()
@@ -24,7 +25,7 @@ class DetailWeatherViewcontroller: UIViewController {
     private let etcWeatherInfoView = AdditionalWeatherInfoView()
     
     init(data: WeatherDetailData) {
-        self.viewModel = DetailWeatherViewModel(data)
+        viewModel = DetailWeatherViewModel(data)
         super.init(nibName: nil, bundle: nil)
         
         attribute()
@@ -38,8 +39,8 @@ class DetailWeatherViewcontroller: UIViewController {
     
     private func bind() {
         etcWeatherInfoView.bind(viewModel.etcWeatherInfoStackViewModel)
-        viewModel.loadIconImage { image in
-            self.iconImageView.image = image
+        viewModel.loadIconImage { [weak self] image in
+            self?.iconImageView.image = image
         }
         weatherDiscriptionLabel.text = viewModel.getWeatherDiscription()
         cityNameLabel.text = viewModel.getCityName()
@@ -47,13 +48,31 @@ class DetailWeatherViewcontroller: UIViewController {
     }
     
     private func attribute() {
-        self.view.backgroundColor = .white
+        view.backgroundColor = UIColor(displayP3Red: 53/256, green: 119/256, blue: 207/256, alpha: 1)
         
-        self.containerStackView.axis = .vertical
-        self.containerStackView.distribution = .fillEqually
+        customNavigationBar.rootViewController = self
         
+        iconImageView.contentMode = .scaleAspectFill
+        
+        containerStackView.axis = .vertical
+        containerStackView.distribution = .fill
+        
+        [weatherDiscriptionLabel, currentTempLabel, cityNameLabel].forEach {
+            $0.textAlignment = .center
+        }
+        
+        weatherDiscriptionLabel.font = .systemFont(ofSize: 25, weight: .medium)
+        currentTempLabel.font = .systemFont(ofSize: 70, weight: .bold)
+        cityNameLabel.font = .systemFont(ofSize: 50, weight: .medium)
+        
+        currentTempLabel.textColor = .white
+        cityNameLabel.textColor = .white
         //temp
-        etcWeatherInfoView.backgroundColor = .yellow
+//        customNavigationBar.backgroundColor = .orange
+//        iconImageView.backgroundColor = .red
+//        weatherDiscriptionLabel.backgroundColor = .blue
+//        currentTempLabel.backgroundColor = .purple
+//        cityNameLabel.backgroundColor = .yellow
     }
     
     private func layout() {
@@ -62,7 +81,9 @@ class DetailWeatherViewcontroller: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        [iconImageView, weatherDiscriptionLabel,currentTempLabel, cityNameLabel, etcWeatherInfoView, UIView()].forEach {
+        let bottomPaddingView = UIView()
+        
+        [customNavigationBar, iconImageView, weatherDiscriptionLabel,currentTempLabel, cityNameLabel, etcWeatherInfoView, bottomPaddingView].forEach {
             self.containerStackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -72,7 +93,21 @@ class DetailWeatherViewcontroller: UIViewController {
         containerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
-        etcWeatherInfoView.widthAnchor.constraint(equalToConstant: self.view.frame.width*2).isActive = true
+        let customNavigationBarHeightMultiple = 0.05
+        let weatherDiscriptionHeightMultiple = 0.05
+        let currentTemperatureLabelHeightMultiple = 0.15
+        let cityNameLabelHeightMultiple = 0.15
+        let etcWeatherInfoViewHeightMultiple = 0.2
+        let bottomPaddingMultiple = 0.1
+        
+        let totalHeightAnchor = view.safeAreaLayoutGuide.heightAnchor
+        
+        customNavigationBar.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: customNavigationBarHeightMultiple).isActive = true
+        weatherDiscriptionLabel.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: weatherDiscriptionHeightMultiple).isActive = true
+        currentTempLabel.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: currentTemperatureLabelHeightMultiple).isActive = true
+        cityNameLabel.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: cityNameLabelHeightMultiple).isActive = true
+        etcWeatherInfoView.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: etcWeatherInfoViewHeightMultiple).isActive = true
+        bottomPaddingView.heightAnchor.constraint(equalTo: totalHeightAnchor, multiplier: bottomPaddingMultiple).isActive = true
     }
     
     private func temperatureLayout() {

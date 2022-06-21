@@ -25,6 +25,7 @@ class WeatherCollectionView: UICollectionView {
     }
     
     private func attribute() {
+        self.backgroundColor = .clear
         self.collectionViewLayout = createLayout()
         self.dataSource = self
         self.delegate = self

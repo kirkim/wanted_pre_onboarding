@@ -12,12 +12,14 @@ enum CurrentInfo {
     case etc
 }
 
-class AdditionalWeatherInfoView: UIStackView {
+class AdditionalWeatherInfoView: UIView {
     private var viewModel:AdditionalWeatherInfoViewModel?
     
     private let horizonButtonStackView = UIStackView()
     private let temperatureSlotButton = UIButton()
     private let etcSlotButton = UIButton()
+    
+    private let stickView = UIView()
     
     private let contentsStackView = UIStackView()
     private let tempInfoView = TemperatureInfoSlotView()
@@ -43,31 +45,33 @@ class AdditionalWeatherInfoView: UIStackView {
     }
     
     private func attribute() {
-        self.axis = .vertical
-        self.distribution = .fillEqually
-        
         horizonButtonStackView.axis = .horizontal
         horizonButtonStackView.distribution = .fillEqually
         
         contentsStackView.axis = .horizontal
         contentsStackView.distribution = .fillEqually
-        
+        contentsStackView.backgroundColor = .white.withAlphaComponent(0.5)
+
         temperatureSlotButton.setTitle("온도", for: .normal)
         etcSlotButton.setTitle("기압∙풍송∙습도", for: .normal)
         [temperatureSlotButton, etcSlotButton].forEach {
-            $0.setTitleColor(.black, for: .normal)
+            $0.setTitleColor(.white, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
         }
         
         temperatureSlotButton.addTarget(self, action: #selector(tempSlotButtonHandler), for: .touchUpInside)
         etcSlotButton.addTarget(self, action: #selector(etcSlotButtonHandler), for: .touchUpInside)
         
-        //temp
-        contentsStackView.backgroundColor = .brown
+        stickView.backgroundColor = .white
+        stickView.layer.cornerRadius = 10
     }
     
     @objc private func tempSlotButtonHandler() {
         if (currentInfo != .temperature) {
             currentInfo = .temperature
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.stickView.frame.origin.x -= self.frame.width/2
+            }
             self.contentsStackView.frame.origin.x += self.frame.width
         }
     }
@@ -75,15 +79,35 @@ class AdditionalWeatherInfoView: UIStackView {
     @objc private func etcSlotButtonHandler() {
         if (currentInfo != .etc) {
             currentInfo = .etc
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.stickView.frame.origin.x += self.frame.width/2
+            }
             self.contentsStackView.frame.origin.x -= self.frame.width
         }
     }
     
     private func layout() {
-        [horizonButtonStackView, contentsStackView].forEach {
-            self.addArrangedSubview($0)
-            translatesAutoresizingMaskIntoConstraints = false
+        [horizonButtonStackView, stickView, contentsStackView].forEach {
+            self.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        let horizonButtonStackViewHeightMultiple = 0.3
+        let stickViewHeightMultiple = 0.1
+        
+        horizonButtonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        horizonButtonStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        horizonButtonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        horizonButtonStackView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: horizonButtonStackViewHeightMultiple).isActive = true
+        
+        stickView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        stickView.topAnchor.constraint(equalTo: horizonButtonStackView.bottomAnchor).isActive = true
+        stickView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
+        stickView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: stickViewHeightMultiple).isActive = true
+        
+        contentsStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        contentsStackView.topAnchor.constraint(equalTo: stickView.bottomAnchor).isActive = true
+        contentsStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        contentsStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         [temperatureSlotButton, etcSlotButton].forEach {
             horizonButtonStackView.addArrangedSubview($0)
@@ -91,7 +115,7 @@ class AdditionalWeatherInfoView: UIStackView {
         
         [tempInfoView, etcInfoView].forEach {
             contentsStackView.addArrangedSubview($0)
-            translatesAutoresizingMaskIntoConstraints = false
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         contentsStackView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 2).isActive = true
