@@ -11,6 +11,11 @@
 		FE291BDF2861598B0094AB6C /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE291BDE2861598B0094AB6C /* DetailWeatherViewController.swift */; };
 		FE291BE1286167740094AB6C /* DetailWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE291BE0286167740094AB6C /* DetailWeatherViewModel.swift */; };
 		FE291BE32861696A0094AB6C /* WeatherDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE291BE22861696A0094AB6C /* WeatherDetailData.swift */; };
+		FE298C002861BA0B00177D8F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE298BFF2861BA0B00177D8F /* InfoView.swift */; };
+		FE298C022861BEB500177D8F /* AdditionalWeatherInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE298C012861BEB500177D8F /* AdditionalWeatherInfoView.swift */; };
+		FE298C042861C05600177D8F /* AdditionalWeatherInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE298C032861C05600177D8F /* AdditionalWeatherInfoViewModel.swift */; };
+		FE298C072861D10F00177D8F /* TemperatureInfoSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE298C062861D10F00177D8F /* TemperatureInfoSlotView.swift */; };
+		FE298C092861D17000177D8F /* ETCInfoSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE298C082861D17000177D8F /* ETCInfoSlotView.swift */; };
 		FE791BDB286006460038661E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE791BDA286006460038661E /* AppDelegate.swift */; };
 		FE791BDD286006460038661E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE791BDC286006460038661E /* SceneDelegate.swift */; };
 		FE791BE42860064D0038661E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE791BE32860064D0038661E /* Assets.xcassets */; };
@@ -35,6 +40,11 @@
 		FE291BDE2861598B0094AB6C /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
 		FE291BE0286167740094AB6C /* DetailWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewModel.swift; sourceTree = "<group>"; };
 		FE291BE22861696A0094AB6C /* WeatherDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailData.swift; sourceTree = "<group>"; };
+		FE298BFF2861BA0B00177D8F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		FE298C012861BEB500177D8F /* AdditionalWeatherInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalWeatherInfoView.swift; sourceTree = "<group>"; };
+		FE298C032861C05600177D8F /* AdditionalWeatherInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalWeatherInfoViewModel.swift; sourceTree = "<group>"; };
+		FE298C062861D10F00177D8F /* TemperatureInfoSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureInfoSlotView.swift; sourceTree = "<group>"; };
+		FE298C082861D17000177D8F /* ETCInfoSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETCInfoSlotView.swift; sourceTree = "<group>"; };
 		FE791BD7286006460038661E /* wanted_pre_onboarding_kimkirim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wanted_pre_onboarding_kimkirim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE791BDA286006460038661E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE791BDC286006460038661E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,8 +82,37 @@
 			children = (
 				FE291BDE2861598B0094AB6C /* DetailWeatherViewController.swift */,
 				FE291BE0286167740094AB6C /* DetailWeatherViewModel.swift */,
+				FE298BFE2861B9DD00177D8F /* SubComponents */,
 			);
 			path = SecondPage;
+			sourceTree = "<group>";
+		};
+		FE298BFE2861B9DD00177D8F /* SubComponents */ = {
+			isa = PBXGroup;
+			children = (
+				FE298C012861BEB500177D8F /* AdditionalWeatherInfoView.swift */,
+				FE298C032861C05600177D8F /* AdditionalWeatherInfoViewModel.swift */,
+				FE298C052861CFC700177D8F /* SubComponents */,
+			);
+			path = SubComponents;
+			sourceTree = "<group>";
+		};
+		FE298C052861CFC700177D8F /* SubComponents */ = {
+			isa = PBXGroup;
+			children = (
+				FE298C062861D10F00177D8F /* TemperatureInfoSlotView.swift */,
+				FE298C082861D17000177D8F /* ETCInfoSlotView.swift */,
+				FE298C0A2861DE5D00177D8F /* SubComponent */,
+			);
+			path = SubComponents;
+			sourceTree = "<group>";
+		};
+		FE298C0A2861DE5D00177D8F /* SubComponent */ = {
+			isa = PBXGroup;
+			children = (
+				FE298BFF2861BA0B00177D8F /* InfoView.swift */,
+			);
+			path = SubComponent;
 			sourceTree = "<group>";
 		};
 		FE791BCE286006460038661E = {
@@ -239,15 +278,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE291BDC2861589B0094AB6C /* WeatherCollectionViewDelegate.swift in Sources */,
+				FE298C042861C05600177D8F /* AdditionalWeatherInfoViewModel.swift in Sources */,
 				FE791BDB286006460038661E /* AppDelegate.swift in Sources */,
 				FE791BDD286006460038661E /* SceneDelegate.swift in Sources */,
 				FE791C0328602A700038661E /* WeatherCollectionViewModel.swift in Sources */,
 				FE791BF228600AE70038661E /* MainWeatherViewModel.swift in Sources */,
+				FE298C022861BEB500177D8F /* AdditionalWeatherInfoView.swift in Sources */,
+				FE298C002861BA0B00177D8F /* InfoView.swift in Sources */,
 				FE791C01286027E30038661E /* WeatherCollectionView.swift in Sources */,
 				FE791BFA28601A0A0038661E /* WeatherNetwork.swift in Sources */,
+				FE298C092861D17000177D8F /* ETCInfoSlotView.swift in Sources */,
 				FE791BF0286007080038661E /* MainWeatherViewController.swift in Sources */,
 				FEA9DFF32860D29700F93EA4 /* WeatherCacheManager.swift in Sources */,
 				FE791BF8286012980038661E /* CityList.swift in Sources */,
+				FE298C072861D10F00177D8F /* TemperatureInfoSlotView.swift in Sources */,
 				FEA9DFF12860849900F93EA4 /* ImageCacheManager.swift in Sources */,
 				FE791BFC28601AA80038661E /* WeatherNetworkData.swift in Sources */,
 				FE291BE1286167740094AB6C /* DetailWeatherViewModel.swift in Sources */,

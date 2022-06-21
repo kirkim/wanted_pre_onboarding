@@ -15,9 +15,12 @@ import Foundation
 import UIKit
 
 class DetailWeatherViewModel {
+    let etcWeatherInfoStackViewModel: AdditionalWeatherInfoViewModel
+    
     private let data: WeatherDetailData
     
     init(_ data: WeatherDetailData) {
+        etcWeatherInfoStackViewModel = AdditionalWeatherInfoViewModel(data)
         self.data = data
         print(data)
     }
@@ -42,38 +45,10 @@ class DetailWeatherViewModel {
         let temp = round((temp - 273.15) * 10) / 10
         let result = String(temp) + "℃"
         return result
-
     }
     
     func getCurrentTemp() -> String {
         return parsingTemp(temp: data.temperatures.temp)
-    }
-    
-    func getMinTemp() -> String {
-        return parsingTemp(temp: data.temperatures.tempMin)
-    }
-    
-    func getMaxTemp() -> String {
-        return parsingTemp(temp: data.temperatures.tempMax)
-    }
-    
-    func getFeelsLikeTemp() -> String {
-        return parsingTemp(temp: data.temperatures.feelsLike)
-    }
-    
-    func getHumidity() -> String {
-        let result = String(Int(data.temperatures.humidity)) + "%"
-        return result
-    }
-    
-    func getPressure() -> String {
-        let result = String(Int(data.temperatures.pressure)) + "hPa"
-        return result
-    }
-    
-    func getWindSpeed() -> String {
-        let result = String(round(data.wind.speed * 10) / 10) + "m/s"
-        return result
     }
     
     func getWeatherDiscription() -> String {

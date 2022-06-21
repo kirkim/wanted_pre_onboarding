@@ -20,12 +20,8 @@ class DetailWeatherViewcontroller: UIViewController {
     private let weatherDiscriptionLabel = UILabel()
     private let cityNameLabel = UILabel()
     private let currentTempLabel = UILabel()
-    private let minTempLabel = UILabel()
-    private let maxTempLabel = UILabel()
-    private let feelsLikeTempLabel = UILabel()
-    private let humidityLabel = UILabel()
-    private let pressureLabel = UILabel()
-    private let windSpeedLabel = UILabel()
+    
+    private let etcWeatherInfoView = AdditionalWeatherInfoView()
     
     init(data: WeatherDetailData) {
         self.viewModel = DetailWeatherViewModel(data)
@@ -41,18 +37,13 @@ class DetailWeatherViewcontroller: UIViewController {
     }
     
     private func bind() {
+        etcWeatherInfoView.bind(viewModel.etcWeatherInfoStackViewModel)
         viewModel.loadIconImage { image in
             self.iconImageView.image = image
         }
         weatherDiscriptionLabel.text = viewModel.getWeatherDiscription()
         cityNameLabel.text = viewModel.getCityName()
         currentTempLabel.text = viewModel.getCurrentTemp()
-        minTempLabel.text = viewModel.getMinTemp()
-        maxTempLabel.text = viewModel.getMaxTemp()
-        feelsLikeTempLabel.text = viewModel.getFeelsLikeTemp()
-        humidityLabel.text = viewModel.getHumidity()
-        pressureLabel.text = viewModel.getPressure()
-        windSpeedLabel.text = viewModel.getPressure()
     }
     
     private func attribute() {
@@ -62,10 +53,7 @@ class DetailWeatherViewcontroller: UIViewController {
         self.containerStackView.distribution = .fillEqually
         
         //temp
-        [weatherDiscriptionLabel, cityNameLabel, currentTempLabel, minTempLabel, maxTempLabel, feelsLikeTempLabel, humidityLabel, pressureLabel, windSpeedLabel].forEach {
-            $0.textAlignment = .center
-            $0.font = .systemFont(ofSize: 24)
-        }
+        etcWeatherInfoView.backgroundColor = .yellow
     }
     
     private func layout() {
@@ -74,17 +62,20 @@ class DetailWeatherViewcontroller: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        [
-            iconImageView, weatherDiscriptionLabel,cityNameLabel,
-            currentTempLabel, minTempLabel, maxTempLabel, feelsLikeTempLabel,
-            humidityLabel, pressureLabel, windSpeedLabel
-        ].forEach {
+        [iconImageView, weatherDiscriptionLabel,currentTempLabel, cityNameLabel, etcWeatherInfoView, UIView()].forEach {
             self.containerStackView.addArrangedSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         containerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         containerStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        etcWeatherInfoView.widthAnchor.constraint(equalToConstant: self.view.frame.width*2).isActive = true
+    }
+    
+    private func temperatureLayout() {
+        
     }
 }
