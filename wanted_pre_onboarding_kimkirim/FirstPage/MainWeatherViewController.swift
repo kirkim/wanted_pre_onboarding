@@ -34,6 +34,7 @@ extension MainWeatherViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = .systemFont(ofSize: 25, weight: .medium)
         
+        collectionView.customDelegate = self
         // temp
         containerStackView.backgroundColor = .blue
         titleLabel.backgroundColor = .green
@@ -54,5 +55,14 @@ extension MainWeatherViewController {
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    }
+}
+
+extension MainWeatherViewController: WeatherCollectionViewDelegate {
+    func weatherCollectionView(didSelectItemAt indexPath: IndexPath, _ data: WeatherDetailData?) {
+        if (data != nil) {
+            let presentVC = DetailWeatherViewcontroller(data: data!)
+            self.navigationController?.pushViewController(presentVC, animated: true)
+        }
     }
 }

@@ -21,4 +21,8 @@ struct WeatherCollectionViewModel {
     func getCellData(indexPath: IndexPath, completion: @escaping (WeatherCellData?) -> ()) {
         return model.getCellData(indexPath: indexPath, completion: completion)
     }
+    
+    func getDetailWeatherData(indexPath: IndexPath) -> WeatherDetailData? {
+        return model.getDetailWeatherData(indexPath: indexPath)
+    }
 }

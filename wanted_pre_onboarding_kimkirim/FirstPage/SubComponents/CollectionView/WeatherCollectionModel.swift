@@ -23,8 +23,9 @@ class WeatherCollectionModel {
         api.getWeather(by: city) { result in
             switch result {
             case .success(let data):
-                WeatherCacheManager.shared.addData(city: city, data: data)
-                let cellData = self.parcingToCellData(city: city, data: data)
+                let detailData = WeatherDetailData(cityName: city, temperatures: data.temperatures, wind: data.wind, weather: data.weather[0])
+                WeatherCacheManager.shared.addData(city: city, data: detailData)
+                let cellData = self.parcingToCellData(city: city, data: detailData)
                 completion(cellData)
             case .failure(let error):
                 print(error)
@@ -37,13 +38,13 @@ class WeatherCollectionModel {
         return cities.count
     }
     
-    func getDetailWeatherData(indexPath: IndexPath) -> WeatherData? {
+    func getDetailWeatherData(indexPath: IndexPath) -> WeatherDetailData? {
         let city = cities[indexPath.row]
         return WeatherCacheManager.shared.getCachedData(city: city)
     }
     
-    private func parcingToCellData(city: CityList, data: WeatherData) -> WeatherCellData {
-        let cellData = WeatherCellData(cityName: city.korean, temperature: data.temperatures.temp, humidity: data.temperatures.humidity, icon: data.weather[0].icon)
+    private func parcingToCellData(city: CityList, data: WeatherDetailData) -> WeatherCellData {
+        let cellData = WeatherCellData(cityName: city.korean, temperature: data.temperatures.temp, humidity: data.temperatures.humidity, icon: data.weather.icon)
         return cellData
     }
 }

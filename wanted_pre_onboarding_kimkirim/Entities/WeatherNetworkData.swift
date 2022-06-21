@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct WeatherData: Codable {
+struct WeatherNetworkData: Codable {
     var cityName: String
     var temperatures: Temperatures
     var wind: Wind
@@ -37,8 +37,9 @@ struct Temperatures: Codable {
     var humidity: Double
     var tempMin: Double
     var tempMax: Double
+    var pressure: Double
     enum CodingKeys: String, CodingKey {
-        case temp, humidity
+        case temp, humidity, pressure
         case feelsLike = "feels_like"
         case tempMin = "temp_min"
         case tempMax = "temp_max"

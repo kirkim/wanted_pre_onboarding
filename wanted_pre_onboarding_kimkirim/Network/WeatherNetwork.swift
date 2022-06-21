@@ -16,9 +16,9 @@ class WeatherNetwork {
         self.session = session
     }
     
-    typealias WeatherNetworkResult = (Result<WeatherData, URLError>) -> ()
+    typealias WeatherNetworkResult = (Result<WeatherNetworkData, URLError>) -> ()
     func getWeather(by cityName: CityList, completion: @escaping WeatherNetworkResult) {
-        print("WeatherNetwork getWeather() called!")
+//        print("WeatherNetwork getWeather() called!")
         DispatchQueue.global().async { [weak self] in
             guard let url = self?.api.getWeather(by: cityName).url else {
                 completion(.failure(URLError(.badURL)))
@@ -31,7 +31,7 @@ class WeatherNetwork {
                 guard let data = self?.errorHandler(data: data, response: response, error: error, completion: completion) else { return }
                 
                 do {
-                    let hasData = try JSONDecoder().decode(WeatherData.self, from: data)
+                    let hasData = try JSONDecoder().decode(WeatherNetworkData.self, from: data)
                     DispatchQueue.main.async {
                         completion(.success(hasData))
                     }

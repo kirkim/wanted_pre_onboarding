@@ -11,16 +11,16 @@ class WeatherCacheManager {
     static let shared = WeatherCacheManager()
     private init() {}
 
-    private var storage: [CityList: WeatherData] = [:]
+    private var storage: [CityList: WeatherDetailData] = [:]
     
-    func getCachedData(city: CityList) -> WeatherData? {
+    func getCachedData(city: CityList) -> WeatherDetailData? {
         if (storage[city] != nil) {
             return storage[city]
         }
         return nil
     }
     
-    func addData(city: CityList, data: WeatherData) {
+    func addData(city: CityList, data: WeatherDetailData) {
         storage.updateValue(data, forKey: city)
     }
     

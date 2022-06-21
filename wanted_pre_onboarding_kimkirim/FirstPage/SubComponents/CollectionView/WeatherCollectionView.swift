@@ -10,6 +10,7 @@ import UIKit
 class WeatherCollectionView: UICollectionView {
     private let model = WeatherCollectionModel()
     private let viewModel: WeatherCollectionViewModel
+    var customDelegate: WeatherCollectionViewDelegate?
     
     init() {
         viewModel = WeatherCollectionViewModel(model)
@@ -26,6 +27,7 @@ class WeatherCollectionView: UICollectionView {
     private func attribute() {
         self.collectionViewLayout = createLayout()
         self.dataSource = self
+        self.delegate = self
         self.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identity)
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
@@ -47,7 +49,7 @@ class WeatherCollectionView: UICollectionView {
     }
 }
 
-// MARK: - WeatherCollectionView datasource, delegate
+// MARK: - WeatherCollectionView datasource
 extension WeatherCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CityList.allCases.count
@@ -61,6 +63,14 @@ extension WeatherCollectionView: UICollectionViewDataSource {
             }
         }
         return cell
+    }
+}
+
+// MARK: - WeatherCollectionView delegate
+extension WeatherCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = viewModel.getDetailWeatherData(indexPath: indexPath)
+        customDelegate?.weatherCollectionView(didSelectItemAt: indexPath, data)
     }
 }
 
