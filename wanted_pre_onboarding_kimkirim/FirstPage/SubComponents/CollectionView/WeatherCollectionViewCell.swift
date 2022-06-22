@@ -50,6 +50,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 extension WeatherCollectionViewCell {
     private func attribute() {
         contentView.backgroundColor = .black.withAlphaComponent(0.2)
+        contentView.layer.cornerRadius = 10
         
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .fill

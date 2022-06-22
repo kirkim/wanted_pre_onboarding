@@ -67,12 +67,6 @@ class DetailWeatherViewcontroller: UIViewController {
         
         currentTempLabel.textColor = .white
         cityNameLabel.textColor = .white
-        //temp
-//        customNavigationBar.backgroundColor = .orange
-//        iconImageView.backgroundColor = .red
-//        weatherDiscriptionLabel.backgroundColor = .blue
-//        currentTempLabel.backgroundColor = .purple
-//        cityNameLabel.backgroundColor = .yellow
     }
     
     private func layout() {
